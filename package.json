@@ -10,8 +10,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.9.3",
+    "nuxt": "^3.8.2",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "puppeteer": "^21.9.0"
   }
 }
