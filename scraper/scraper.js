@@ -1,14 +1,20 @@
 import puppeteer from 'puppeteer';
 
-async function scrapePrintables( query ){
+export async function scrapePrintables( query ){
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: false,
   });
   
   const page = await browser.newPage();
+
+  let url = 'https://www.printables.com/model';
+
+  if(query){
+    url = `https://www.printables.com/search/models?q=${query}&ctx=models`
+  }
     
-  await page.goto('https://www.printables.com/model');
+  await page.goto(url);
     
   const acceptButton = await page.$('#onetrust-accept-btn-handler');
     
@@ -45,7 +51,7 @@ async function scrapePrintables( query ){
   return results;
 }
 
-async function scrapeThingiverse( query ){
+export async function scrapeThingiverse( query ){
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: false,
@@ -53,8 +59,13 @@ async function scrapeThingiverse( query ){
 
   const page = await browser.newPage();
 
-  await page.goto('https://www.thingiverse.com');
+  let url = 'https://www.thingiverse.com';
 
+  if(query){
+    url = `https://www.thingiverse.com/search?q=${query}&page=1`
+  }
+
+  await page.goto(url);
 
   const acceptButton = await page.$('#CybotCookiebotDialogBodyButtonDecline');
 
@@ -69,7 +80,6 @@ async function scrapeThingiverse( query ){
   const results = []
       
   const items = await page.$$('.ItemCardContainer__itemCard--GGbYM');
-  console.log(items.length)
     
   for (let i = 0; i < items.length; i++) {
 
@@ -80,12 +90,12 @@ async function scrapeThingiverse( query ){
   //await items[i].hover();
   const username = 'wip' //await items[i].$eval('.ItemCardContent__itemCardLinkFiller--uj5HM', el => el.innerText);
 
-  const likes = '0'//await rating.$eval('span', el => el.innerText);
+  const likes = 0 //await rating.$eval('span', el => el.innerText);
 
   results.push({'source' : 'thingiverse', title, url, img, username, likes});
   }
 
-  console.log(results);
+  await browser.close()
 
-  await browser.close();
+  return results
 }

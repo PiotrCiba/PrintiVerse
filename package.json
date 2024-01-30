@@ -15,6 +15,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "puppeteer": "^21.9.0"
+    "puppeteer": "^21.9.0",
+    "vue-search-input": "^1.1.14"
   }
 }
