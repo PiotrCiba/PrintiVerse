@@ -33,10 +33,10 @@
     <div class="content-container">
       <div class="logo">
         <a href="https://printables.com" target="_blank">
-          <img src="C:\_STUDIA\PJS\PrintiVerse\assets\Printi.svg" width="254"/>
+          <img src="./assets/Printi.svg" width="254"/>
         </a>
         <a href="https://thingiverse.com" target="_blank">
-          <img src="C:\_STUDIA\PJS\PrintiVerse\assets\Verse.svg" width="280"/>
+          <img src="./assets/Verse.svg" width="280"/>
         </a>
       </div>
       <p>
