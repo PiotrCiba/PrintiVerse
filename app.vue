@@ -1,7 +1,15 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, reactive } from 'vue';
     
-    const message = ref('')
+    const searchQuery = ref('')
+
+    let apiget = await useFetch(`/api/featured`)
+    let panelsData = ref(apiget.data.value);
+
+    async function doSearch(){
+      let get = await useFetch(`/api/query?search=${searchQuery.value}`)
+      panelsData.value = get.data.value
+    }
 
     function getPanelColor(source){
     // Define colors based on the source attribute
@@ -23,8 +31,27 @@
       <div class="right-background"></div>
     </div>
     <div class="content-container">
-      <p>You typed: {{ message }}</p>
-      <input name="search" class="search" type="search" v-model="message"/>
+      <div class="logo">
+        <a href="https://printables.com" target="_blank">
+          <img src="C:\_STUDIA\PJS\PrintiVerse\assets\Printi.svg" width="254"/>
+        </a>
+        <a href="https://thingiverse.com" target="_blank">
+          <img src="C:\_STUDIA\PJS\PrintiVerse\assets\Verse.svg" width="280"/>
+        </a>
+      </div>
+      <p>
+        <input name="search" class="search" type="search" v-model="searchQuery" @keyup.enter="doSearch()" placeholder="Search for 3D models..."/>
+      </p>
+      <div class="panel-grid">
+        <div v-for="panel in panelsData" :key="panel.url" class="panel" :style="{ backgroundColor: getPanelColor(panel.source) }">
+          <a :href="panel.url" target="_blank">
+            <img :src="panel.img" alt="Thumbnail">
+            <h3>{{ panel.title }}</h3>
+          </a>
+            <p>Creator: {{ panel.username }}</p>
+            <p>Likes: {{ panel.likes }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -65,15 +92,29 @@
     width: 95%; /* Adjust this value based on your preference */
     height: 90%; /* Adjust this value based on your preference */
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.364);
     padding: 20px;
+  }
+
+  .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    transform: translateX(18px);
+  }
+
+  .logo img{
+    margin-right: 8px;
   }
 
   .search {
     position: relative;
     display: flex;
     width: 100%;
-    height: auto;
+    height: 5vh;
+    font-size: large;
+    padding: 20px;
   }
 
   .panel-grid {
