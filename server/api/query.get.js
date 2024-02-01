@@ -2,8 +2,10 @@ import { scrapePrintables, scrapeThingiverse } from "../../modules/scraper/scrap
 
 export default defineEventHandler(async (event) =>{
     const query = getQuery(event)
-    const printy = await scrapePrintables(query.search);
-    const thingy = await scrapeThingiverse(query.search);
+    const promiseprinty = scrapePrintables(query.search);
+    const promisethingy = scrapeThingiverse(query.search);
+    const printy = await promiseprinty;
+    const thingy = await promisethingy;
     const results = [].concat(printy, thingy);
     results.sort((a,b) => b.relevance - a.relevance);
     return results;
