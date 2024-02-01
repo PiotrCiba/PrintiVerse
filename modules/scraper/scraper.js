@@ -3,8 +3,9 @@ import {ratio} from 'fuzzball';
 
 export async function scrapePrintables( query ){
   const browser = await puppeteer.launch({
-    headless: false,
+    headless:false,
     defaultViewport: false,
+    ignoreHTTPSErrors: true,
   });
   
   const page = await browser.newPage();
