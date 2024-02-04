@@ -15,9 +15,9 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@sparticuz/chromium-min": "^121.0.0",
+    "chrome-aws-lambda": "^10.1.0",
     "fuzzball": "^2.1.2",
-    "puppeteer": "^21.9.0",
+    "puppeteer-core": "^10.4.0",
     "vue-search-input": "^1.1.14"
   }
 }
